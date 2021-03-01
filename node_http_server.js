@@ -70,7 +70,7 @@ class NodeHttpServer {
       this.app.use(Express.static(config.http.webroot));
     }
 
-    this.httpServer = Http.createServer(app);
+    this.httpServer = Http.createServer(this.app);
 
     /**
      * ~ openssl genrsa -out privatekey.pem 1024
@@ -83,7 +83,7 @@ class NodeHttpServer {
         cert: Fs.readFileSync(this.config.https.cert)
       };
       this.sport = config.https.port ? config.https.port : HTTPS_PORT;
-      this.httpsServer = Https.createServer(options, app);
+      this.httpsServer = Https.createServer(options, this.app);
     }
   }
 
